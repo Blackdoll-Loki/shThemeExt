@@ -3,15 +3,23 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://example.com/"
+application_url = "https://jesus-dh-pointing-specialist.trycloudflare.com"
 embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "fffff12345test.myshopify.com"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = ""
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://jesus-dh-pointing-specialist.trycloudflare.com/auth/callback",
+  "https://jesus-dh-pointing-specialist.trycloudflare.com/auth/shopify/callback",
+  "https://jesus-dh-pointing-specialist.trycloudflare.com/api/auth/callback"
+]
 
 [webhooks]
 api_version = "2024-10"

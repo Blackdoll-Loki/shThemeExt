@@ -1,1 +1,1 @@
-# ecom-cms-test
+# Shopify Theme Extension ( Simple Volume Discount App )
