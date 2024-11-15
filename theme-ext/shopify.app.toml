@@ -3,7 +3,7 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://positions-beats-peterson-trace.trycloudflare.com"
+application_url = "https://okay-phenomenon-academics-italy.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://positions-beats-peterson-trace.trycloudflare.com/auth/callback",
-  "https://positions-beats-peterson-trace.trycloudflare.com/auth/shopify/callback",
-  "https://positions-beats-peterson-trace.trycloudflare.com/api/auth/callback"
+  "https://okay-phenomenon-academics-italy.trycloudflare.com/auth/callback",
+  "https://okay-phenomenon-academics-italy.trycloudflare.com/auth/shopify/callback",
+  "https://okay-phenomenon-academics-italy.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
