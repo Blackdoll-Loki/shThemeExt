@@ -19,14 +19,19 @@ export default function AdditionalPage() {
       <Card>
         <BlockStack gap="500">
           <Text variant="headingXl" as="h4">
-            Here will bu the funnel widget preview
+            Here will be the funnel widget preview
           </Text>
           <TextFieldComponent />
           <BlockStack gap="500">
-            <Text variant="headingXl" as="h4">
-              Apply offer to
-            </Text>
-            <DiscountSettingsBlock />
+
+          </BlockStack>
+          <BlockStack gap="800">
+          <Text variant="headingLg" as="h5">
+            Discount configuration
+          </Text>
+            <DiscountSettingsBlock volume={3} discount={5}/>
+            <DiscountSettingsBlock volume={5} discount={10}/>
+            <DiscountSettingsBlock volume={10} discount={15}/>
           </BlockStack>
         </BlockStack>
       </Card>
