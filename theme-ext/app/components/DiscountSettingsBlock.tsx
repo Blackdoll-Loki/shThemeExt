@@ -22,6 +22,12 @@ export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps
     [],
   );
 
+  const handleDiscountChange = useCallback((newDiscount: string) => {
+    const discountValue = parseInt(newDiscount, 10); // Конвертуємо значення
+    setDescription(`${discountValue}% discount`);
+    setLabel(`-${discountValue}%`);
+  }, []);
+
   
   return (
     <InlineStack gap="500" align="center">
@@ -41,7 +47,7 @@ export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps
         <Text variant="headingMd" as="h6" tone="subdued">
           Discount
         </Text>
-        <SelectExample min={1} max={props.discount * 2} str="%" defaultValue={`${props.discount}`}/>
+        <SelectExample min={1} max={props.discount * 2} str="%" defaultValue={`${props.discount}`} onValueChange={handleDiscountChange}/>
         <Text as="p" tone="subdued">
           Discount value in %
         </Text>
