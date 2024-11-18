@@ -9,7 +9,29 @@ import { TitleBar } from "@shopify/app-bridge-react";
 import  TextFieldComponent  from '../components/textField';
 import DiscountSettingsBlock from "app/components/DiscountSettingsBlock";
 
+
 export default function AdditionalPage() {
+  // async function selectProduct() {
+  //   const products = await window.shopify.resourcePicker({
+  //     type: "product",
+  //     action: "select", // customized action verb, either 'select' or 'add',
+  //   });
+
+  //   if (products) {
+  //     const { images, id, variants, title, handle } = products[0];
+
+  //     setFormState({
+  //       ...formState,
+  //       productId: id,
+  //       productVariantId: variants[0].id,
+  //       productTitle: title,
+  //       productHandle: handle,
+  //       productAlt: images[0]?.altText,
+  //       productImage: images[0]?.originalSrc,
+  //     });
+  //   }
+  // }
+
   return (
     <Page
     backAction={{content: 'Settings', url: '#'}}
@@ -22,9 +44,6 @@ export default function AdditionalPage() {
             Here will be the funnel widget preview
           </Text>
           <TextFieldComponent />
-          <BlockStack gap="500">
-
-          </BlockStack>
           <BlockStack gap="800">
           <Text variant="headingLg" as="h5">
             Discount configuration
