@@ -12,6 +12,7 @@ import  TextFieldComponent  from '../components/textField';
 import DiscountSettingsBlock from "app/components/DiscountSettingsBlock";
 import SelectProductComponent from '../components/SelectProductComponent';
 import { useCallback, useState } from "react";
+import WidgetComponent from "app/components/widgetComponent";
 
 
 export default function AdditionalPage() {
@@ -47,9 +48,7 @@ export default function AdditionalPage() {
     >
       <Card>
         <BlockStack gap="500">
-          <Text variant="headingXl" as="h4">
-            Here will be the funnel widget preview
-          </Text>
+          <WidgetComponent />
           <TextFieldComponent />
           <SelectProductComponent />
           <BlockStack gap="800">
