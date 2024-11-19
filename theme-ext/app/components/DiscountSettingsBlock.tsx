@@ -6,6 +6,7 @@ import { XIcon } from '@shopify/polaris-icons';
 interface DiscountSettingsBlockProps{
   volume: number;
   discount: number;
+  onRemove: () => void;
 }
 
 export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps){
@@ -38,7 +39,11 @@ export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps
   
   return (
     <InlineStack gap='300' align="center">
-      <Button variant="plain" icon={XIcon} accessibilityLabel="Remove discount block" />
+      <Button
+       variant="plain"
+       icon={XIcon}
+       accessibilityLabel="Remove discount block"
+       onClick={props.onRemove} />
       <Box width="210px">
         <BlockStack gap="300">
           <Text variant="headingMd" as="h6" tone="subdued">
