@@ -7,6 +7,7 @@ import {
   Button,
   InlineStack,
   Box,
+  Thumbnail,
 } from '@shopify/polaris';
 import {XIcon} from '@shopify/polaris-icons';
 import type { SelectedProduct } from "./SelectProductComponent";
@@ -34,9 +35,17 @@ export default function ResourceListComp( { items, onRemoveProduct }: ResourceLi
       renderItem={(item) => {
         const { id, url, name } = item;
 
+
         return (
-          <ResourceItem id={id} url={url} accessibilityLabel={`View details for ${name}`}>
+          <ResourceItem
+           id={id}
+           url='' 
+           accessibilityLabel={`${name}`}>
             <InlineStack align="space-between" blockAlign="center">
+              <Thumbnail
+                source={url}
+                alt={name}
+              />
               <Text variant="bodyMd" fontWeight="bold" as="h3">
                 {name}
               </Text>

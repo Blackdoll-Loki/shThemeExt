@@ -1,4 +1,4 @@
-import { Box, Button, InlineStack, RadioButton, Text } from "@shopify/polaris";
+import { BlockStack, Box, Button, InlineStack, RadioButton, Text } from "@shopify/polaris";
 import { useCallback, useState } from "react";
 import  ResourceListComp  from "./resourceListComp"
 
@@ -40,7 +40,7 @@ export default function SelectProductComponent(){
         }));
   
         // Оновлюємо стан, додаючи нові продукти
-        setProducts((prevProducts) => [...prevProducts, ...mappedProducts]);
+        setProducts(() => [...mappedProducts]);
       } catch (error) {
       console.error("Error selecting products:", error);
     }
@@ -52,18 +52,13 @@ export default function SelectProductComponent(){
       <Text variant="headingMd" as="h6">
         Apply offer to
       </Text>
-      <Button onClick={() => selectProduct()}></Button>
-      {/* {<RadioButton
-        label="Select products"
-        checked={product !== null}
-        id="disabled"
-        name="accounts"
-        onChange={selectProduct}
-      />} */}
+      <Box padding="400">
+        <Button variant="plain" onClick={() => selectProduct()}>Select products</Button>
+      </Box>
       <InlineStack blockAlign='center' align="center" gap='400'>
         {products ? (
-      <ResourceListComp items={products} onRemoveProduct={handleRemoveProduct} />
-    ) : (
+        <ResourceListComp items={products} onRemoveProduct={handleRemoveProduct} />
+        ) : (
           <Text variant="bodyLg" as="p">
             Select product
           </Text>
