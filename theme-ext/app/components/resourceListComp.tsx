@@ -12,43 +12,49 @@ import {XIcon} from '@shopify/polaris-icons';
 import type { SelectedProduct } from "./SelectProductComponent";
 
 interface ResourceListCompProps {
-  selectedProduct: SelectedProduct | null; // Може бути null, якщо продукт не вибраний
+  items: SelectedProduct[]; // Масив обраних продуктів
+  onRemoveProduct?: (productId: string) => void; // Опціональний callback для видалення продукту
 }
 
-export default function ResourceListComp( { selectedProduct }: ResourceListCompProps) {
 
+export default function ResourceListComp( { items, onRemoveProduct }: ResourceListCompProps) {
+  if (items.length === 0) {
+    return null;
+  }
+  
   return (
-    <Box width='80%'>
-      <ResourceList
-        resourceName={{ singular: "product", plural: "products" }}
-        items={[
-          {
-            id: selectedProduct?.productId,
-            url: selectedProduct?.productImage || "#", // Якщо немає зображення, використовуємо пустий URL
-            name: selectedProduct?.productTitle,
-          },
-        ]}
-        renderItem={(item) => {
-          if(item){
-            const {id, url, name} = item;
+    <Box width="80%">
+    <ResourceList
+      resourceName={{ singular: "product", plural: "products" }}
+      items={items.map((product) => ({
+        id: product.productId,
+        url: product.productImage || "#", // Якщо немає зображення, використовуємо пустий URL
+        name: product.productTitle,
+      }))}
+      renderItem={(item) => {
+        const { id, url, name } = item;
 
-            return (
-              <ResourceItem
-                id={id || ''}
-                url={url}
-              >
-                <InlineStack align='space-between' blockAlign='center'>
-                  <Text variant="bodyMd" fontWeight="bold" as="h3">
-                    {name}
-                  </Text>
-                  <Button variant="plain" icon={XIcon} tone="critical" accessibilityLabel="Delete product" />
-                </InlineStack>
-              </ResourceItem>
-            );
-          }}
-          }
-      />
-    </Box>
+        return (
+          <ResourceItem id={id} url={url} accessibilityLabel={`View details for ${name}`}>
+            <InlineStack align="space-between" blockAlign="center">
+              <Text variant="bodyMd" fontWeight="bold" as="h3">
+                {name}
+              </Text>
+              {onRemoveProduct && (
+                <Button
+                  variant="plain"
+                  icon={XIcon}
+                  tone="critical"
+                  onClick={() => onRemoveProduct(id)}
+                  accessibilityLabel="Delete product"
+                />
+              )}
+            </InlineStack>
+          </ResourceItem>
+        );
+      }}
+    />
+  </Box>
   );
 }
 

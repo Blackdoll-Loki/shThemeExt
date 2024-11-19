@@ -3,7 +3,7 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://code-researchers-robust-consolidated.trycloudflare.com"
+application_url = "https://lesson-effectively-nuke-labels.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://code-researchers-robust-consolidated.trycloudflare.com/auth/callback",
-  "https://code-researchers-robust-consolidated.trycloudflare.com/auth/shopify/callback",
-  "https://code-researchers-robust-consolidated.trycloudflare.com/api/auth/callback"
+  "https://lesson-effectively-nuke-labels.trycloudflare.com/auth/callback",
+  "https://lesson-effectively-nuke-labels.trycloudflare.com/auth/shopify/callback",
+  "https://lesson-effectively-nuke-labels.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

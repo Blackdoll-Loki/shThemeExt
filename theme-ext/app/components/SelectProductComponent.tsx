@@ -15,40 +15,36 @@ export interface SelectedProduct {
 }
 
 export default function SelectProductComponent(){
-  // const [value, setValue] = useState('disabled');
+  const [products, setProducts] = useState<SelectedProduct[]>([]);
 
-  // const handleChange = useCallback(
-  //   (_: boolean, newValue: string) => setValue(newValue),
-  //   [],
-  // );
-  const [product, setProduct] = useState<SelectedProduct | null>(null);
+  const handleRemoveProduct = (productId: string) => {
+    setProducts((prev) => prev.filter((product) => product.productId !== productId));
+  };
 
   async function selectProduct() {
-  try {
-    const result = await window.shopify.resourcePicker({
-      type: "product",
-      action: "select",
-    });
-
-    const products = result as unknown as ShopifyProduct[];
-
-    if (products && products.length > 0) {
-      const { id, title, images } = products[0];
-
-      // Перевіряємо, чи є необхідні дані
-      if (id && title) {
-        setProduct({
-          productId: id,
-          productTitle: title,
-          productImage: images?.[0]?.originalSrc || undefined,
-        });
-      }
+    try {
+      const result = await window.shopify.resourcePicker({
+        type: "product",
+        action: "select",
+        multiple: true, // Дозволяємо обирати кілька продуктів
+      }) as ShopifyProduct[];
+  
+  
+      // if (result !== undefined) {
+        // Мапимо вибрані продукти у потрібний формат
+        const mappedProducts: SelectedProduct[] = result.map((product) => (
+          {
+          productId: product.id,
+          productTitle: product.title,
+          productImage: product.images?.[0]?.originalSrc,
+        }));
+  
+        // Оновлюємо стан, додаючи нові продукти
+        setProducts((prevProducts) => [...prevProducts, ...mappedProducts]);
+      } catch (error) {
+      console.error("Error selecting products:", error);
     }
-  } catch (error) {
-    console.error("Error selecting product:", error);
   }
-}
-console.log(product)
 
 
   return (
@@ -56,18 +52,18 @@ console.log(product)
       <Text variant="headingMd" as="h6">
         Apply offer to
       </Text>
-     { /*<Button onClick={selectProduct}></Button>*/}
-      <RadioButton
+      <Button onClick={() => selectProduct()}></Button>
+      {/* {<RadioButton
         label="Select products"
         checked={product !== null}
         id="disabled"
         name="accounts"
         onChange={selectProduct}
-      />
+      />} */}
       <InlineStack blockAlign='center' align="center" gap='400'>
-        {product ? (
-          <ResourceListComp selectedProduct={product}/>
-        ) : (
+        {products ? (
+      <ResourceListComp items={products} onRemoveProduct={handleRemoveProduct} />
+    ) : (
           <Text variant="bodyLg" as="p">
             Select product
           </Text>
