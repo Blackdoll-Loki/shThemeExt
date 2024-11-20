@@ -60,7 +60,7 @@ export default function AdditionalPage() {
     >
       <Card>
         <BlockStack gap="500">
-          <WidgetComponent />
+          <WidgetComponent blocks={blocks}/>
           <TextFieldComponent />
           <SelectProductComponent />
           <BlockStack gap="800">

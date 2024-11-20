@@ -21,8 +21,6 @@
 
 .progress-bar{
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
   height: 25px;
   width: 100%;
   border: 1px solid black;
