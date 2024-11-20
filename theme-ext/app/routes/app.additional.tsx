@@ -17,22 +17,25 @@ import WidgetComponent from "app/components/widgetComponent";
 
 export default function AdditionalPage() {
   const [blocks, setBlocks] = useState([
-    { id: 1, volume: 3, discount: 5 },
-    { id: 2, volume: 5, discount: 10 },
-    { id: 3, volume: 10, discount: 15 },
+    { id: 1, volume: 3, discount: 5, label: "-5%", description: "5% discount" },
+    { id: 2, volume: 5, discount: 10, label: "-10%", description: "10% discount" },
+    { id: 3, volume: 10, discount: 15, label: "-15%", description: "15% discount" },
   ]);
-  
+
   const [checked, setChecked] = useState(false);
+
   const handleChange = useCallback(
     (newChecked: boolean) => setChecked(newChecked),
-    [],
+    []
   );
 
   const addBlock = () => {
     const newBlock = {
-      id: Date.now(), // Унікальний ID
+      id: Date.now(),
       volume: 0,
       discount: 0,
+      label: "",
+      description: "",
     };
     setBlocks((prevBlocks) => [...prevBlocks, newBlock]);
   };
@@ -40,6 +43,15 @@ export default function AdditionalPage() {
   const removeBlock = (id: number) => {
     setBlocks((prevBlocks) => prevBlocks.filter((block) => block.id !== id));
   };
+
+  const updateBlock = (id: number, updatedValues: Partial<typeof blocks[0]>) => {
+    setBlocks((prevBlocks) =>
+      prevBlocks.map((block) =>
+        block.id === id ? { ...block, ...updatedValues } : block
+      )
+    );
+  };
+
 
   return (
     <Page
@@ -56,13 +68,14 @@ export default function AdditionalPage() {
             Discount configuration
           </Text>
           {blocks.map((block) => (
-          <DiscountSettingsBlock
-            key={block.id}
-            volume={block.volume}
-            discount={block.discount}
-            // Передаємо функцію для видалення
-            onRemove={() => removeBlock(block.id)}
-          />))}
+              <DiscountSettingsBlock
+                key={block.id}
+                {...block}
+                checked={checked}
+                onRemove={() => removeBlock(block.id)}
+                onUpdate={(updatedValues) => updateBlock(block.id, updatedValues)}
+              />
+            ))}
           </BlockStack>
           <InlineStack align="space-between">
             <Button

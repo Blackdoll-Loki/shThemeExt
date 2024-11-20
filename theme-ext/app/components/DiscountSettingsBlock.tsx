@@ -1,41 +1,60 @@
-import { BlockStack, Box, Button, Divider, InlineGrid, InlineStack, Text, TextField } from "@shopify/polaris"
-import SelectExample from './Select'
+import { BlockStack, Box, Button, Divider,  InlineStack, Text, TextField } from "@shopify/polaris"
 import { useCallback, useState } from "react";
 import { XIcon } from '@shopify/polaris-icons';
 
-interface DiscountSettingsBlockProps{
+interface DiscountSettingsBlockProps {
   volume: number;
   discount: number;
+  label: string;
+  description: string;
+  checked: boolean;
   onRemove: () => void;
+  onUpdate: (updatedValues: Partial<DiscountSettingsBlockProps>) => void;
 }
 
-export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps){
-  const [description, setDescription] = useState(`${props.discount}% discount`);
-  const [label, setLabel] = useState(`-${props.discount}%`);
-  const [volumeValue, setVolumeValue] = useState('1');
-  const [discountValue, setDiscountValue] = useState('1');
-
+export default function DiscountSettingsBlock ({
+  volume,
+  discount,
+  label,
+  description,
+  checked,
+  onRemove,
+  onUpdate,
+}: DiscountSettingsBlockProps){
   const handleVolumeChange = useCallback(
-    (newValue: string) => setVolumeValue(newValue),
-    [],
+    (newValue: string) => {
+      onUpdate({ volume: parseInt(newValue, 10) || 0 });
+    },
+    [onUpdate]
+  );
+
+  const handleDiscountChange = useCallback(
+    (newValue: string) => {
+      const discountValue = parseInt(newValue, 10) || 0;
+      onUpdate({
+        discount: discountValue,
+        description: `${discountValue}% discount`,
+        ...(checked ? {} : { label: `-${discountValue}%` }), // Заблокувати оновлення label
+      });
+    },
+    [onUpdate, checked]
   );
 
   const handleDescriptionChange = useCallback(
-    (newValue: string) => setDescription(newValue),
-    [],
+    (newValue: string) => {
+      onUpdate({ description: newValue });
+    },
+    [onUpdate]
   );
 
   const handleLabelChange = useCallback(
-    (newValue: string) => setLabel(newValue),
-    [],
+    (newValue: string) => {
+      if (!checked) {
+        onUpdate({ label: newValue });
+      }
+    },
+    [onUpdate, checked]
   );
-
-  const handleDiscountChange = useCallback((newDiscount: string) => {
-    setDiscountValue(newDiscount) // Конвертуємо значення
-    setDescription(`${newDiscount}% discount`);
-    setLabel(`-${newDiscount}%`);
-  }, []);
-
   
   return (
     <BlockStack gap="500">
@@ -44,7 +63,7 @@ export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps
         variant="plain"
         icon={XIcon}
         accessibilityLabel="Remove discount block"
-        onClick={props.onRemove} />
+        onClick={onRemove} />
         <Box width="210px">
           <BlockStack gap="300">
             <Text variant="headingMd" as="h6" tone="subdued">
@@ -53,7 +72,7 @@ export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps
             <TextField
               label=""
               type="number"
-              value={volumeValue}
+              value={volume.toString()}
               onChange={handleVolumeChange}
               autoComplete="off"
             />
@@ -70,7 +89,7 @@ export default function DiscountSettingsBlock (props: DiscountSettingsBlockProps
             <TextField
               label=""
               type="number"
-              value={volumeValue}
+              value={discount.toString()}
               onChange={handleDiscountChange}
               autoComplete="off"
             />

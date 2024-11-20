@@ -34,7 +34,7 @@
   border: 1px solid gray;
 }
 .progress-bar-block_active{
-  background: linear-gradient(to right, rgb(123, 123, 199) 75%, white 25%);
+  background: linear-gradient(to right, rgb(160, 159, 243) 75%, white 25%);
 }
 
 .widget-table{
