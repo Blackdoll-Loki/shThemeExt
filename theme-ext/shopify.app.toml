@@ -3,7 +3,7 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://do-officially-maui-allowance.trycloudflare.com"
+application_url = "https://black-worldwide-pound-frontier.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://do-officially-maui-allowance.trycloudflare.com/auth/callback",
-  "https://do-officially-maui-allowance.trycloudflare.com/auth/shopify/callback",
-  "https://do-officially-maui-allowance.trycloudflare.com/api/auth/callback"
+  "https://black-worldwide-pound-frontier.trycloudflare.com/auth/callback",
+  "https://black-worldwide-pound-frontier.trycloudflare.com/auth/shopify/callback",
+  "https://black-worldwide-pound-frontier.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

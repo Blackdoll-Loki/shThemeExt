@@ -30,34 +30,41 @@ export default function WidgetComponent(){
           />
         </Box>
       </InlineStack>
-      <section>
-        <div className='text-block'>
-          <h2>savings Chart</h2>
-          <p>* 0 in cart</p>
+      <section className='widget-section'>
+        <div className='widget-content'>
+          <div className='text-block'>
+            <h2 className='widget-title'>Savings Chart</h2>
+            <p className='widget-title'>* 0 in cart</p>
+          </div>
+          <div className='progress-bar'>
+            <div className='progress-bar-block'>Quantity 1</div>
+            <div className='progress-bar-block progress-bar-block_active'>-5%</div>
+            <div className='progress-bar-block'>-10%</div>
+            <div className='progress-bar-block'>-15%</div>
+          </div>
+          <table className='widget-table'>
+            <thead>
+              <tr className='table-row'>
+                <th>Quantity</th>
+                <th>Discount per item</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className='table-row'>
+                <td>3</td>
+                <td>-5</td>
+              </tr>
+              <tr className='table-row'>
+                <td>5</td>
+                <td>-10</td>
+              </tr>
+              <tr className='table-row'>
+                <td>10</td>
+                <td>-15</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div className='progress-bar'></div>
-        <table>
-          <thead>
-            <tr>
-              <th>Quantity</th>
-              <th>Discount per item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>3</td>
-              <td>-5</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>-10</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>-15</td>
-            </tr>
-          </tbody>
-        </table>
       </section>
     </Box>
   )

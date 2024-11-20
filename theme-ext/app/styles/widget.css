@@ -1,4 +1,51 @@
-.heading{
+.widget-section{
+  margin: o auto;
+  padding: 5% 10% 7%;
+}
+
+.widget-content{
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  row-gap: 25px;
+}
+.text-block{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
+
+.widget-title{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.progress-bar{
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 25px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.progress-bar-block{
+  display: flex;
+  justify-content: center;
+  border: 1px solid gray;
+}
+.progress-bar-block_active{
+  background: linear-gradient(to right, rgb(123, 123, 199) 75%, white 25%);
+}
+
+.widget-table{
+  padding: 5% 20%;
+  border: 1px solid black;
+}
+.table-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+
