@@ -42,35 +42,52 @@ export default function WidgetComponent({ blocks }: WidgetProps){
   }
   const options = createOptions();
 
+  // function getProgressBarStyles(arr: Block[], selected: string) {
+  //   const volumes = arr.map((obj) => obj.volume);
+  //   const select = Number(selected); // Поточне значення selected
+  //   let remaining = select
+  //   const styles = volumes.map((volume, index) => {
+  //     if(select >= (volume - 1)){
+  //       return { background: 'rgb(160, 159, 243)' }
+  //     }
+
+  //     if(select < volume && remaining !== 0 ){
+  //       const percentColored = Math.round((remaining / volume) * 100);
+  //       const percentWhite = 100 - percentColored;
+  //       remaining = 0
+  //       return {
+  //            background: `linear-gradient(to right, rgb(160, 159, 243) ${percentColored}%, white ${percentWhite}%)`,
+  //       };
+  //     } 
+  //   });
+  //   console.log(styles)
+  //   return styles;
+  // }
+
   function getProgressBarStyles(arr: Block[], selected: string) {
-    const volumes = arr.map((obj) => obj.volume);
-    let remaining = Number(selected); // Поточне значення selected
-    const styles = volumes.map((volume, index) => {
-      if (remaining <= 0) {
-        // Якщо значення selected вже вичерпане, всі наступні блоки будуть білими
-        return { background: 'white' };
-      }
-  
-      if (remaining >= volume) {
-        // Якщо залишок більше або дорівнює поточному volume, зафарбувати повністю
-        remaining -= volume; // Віднімаємо об'єм поточного блоку
-        return { background: 'rgb(160, 159, 243)' };
-      } else {
-        // Якщо залишок менший за поточний volume, додати градієнт
-        const percentColored = Math.round((remaining / volume) * 100);
-        console.log(`percentColored ${percentColored}`)
-        const percentWhite = 100 - percentColored;
-        console.log(`percentWhite ${percentWhite}`)
-        remaining = 0; // Після градієнта залишок закінчується
-        return {
-          background: `linear-gradient(to right, rgb(160, 159, 243) ${percentColored}% ${percentWhite}%, white ${percentWhite}%)`,
-        };
-      }
-    });
-  
-    return styles;
+      const volumes = arr.map((obj) => obj.volume);
+      const select = Number(selected); // Поточне значення selected
+      let nextBlockGrad = 0;
+
+      const styles = volumes.map((volume, index) => {
+          if(select >= volume){
+            nextBlockGrad = 1
+            return { background: 'rgb(160, 159, 243)' }
+          }
+          if(nextBlockGrad || select < volume){
+            const percentColored = Math.round((select / volume) * 100);
+            const percentWhite = 100 - percentColored;
+            if(select < volume){
+              nextBlockGrad = 0
+            }
+            return {
+              background: `linear-gradient(to right, rgb(160, 159, 243) ${percentColored}%, white ${percentWhite}%)`,
+             };
+          }
+      })
+      return styles;
   }
-  
+
 
   return(
     <Box>
@@ -101,7 +118,8 @@ export default function WidgetComponent({ blocks }: WidgetProps){
           >
             <div className='progress-bar-block' style={progressBarStyles[0]}>Quantity {selected}</div>
               { 
-                blocks.map((block, index)=>{
+                blocks.sort((block1: Block, block2: Block)=>block1.volume - block2.volume)
+                .map((block, index)=>{
                   return (
                     <div className='progress-bar-block'
                     style={progressBarStyles[index+1]}>-{block.discount}%</div>
@@ -117,7 +135,8 @@ export default function WidgetComponent({ blocks }: WidgetProps){
               </tr>
             </thead>
             <tbody>
-              {blocks.map((obj)=>(
+              {blocks.sort((block1: Block, block2: Block)=>block1.volume - block2.volume)
+              .map((obj)=>(
                 <tr className='table-row' >
                   <td>{obj.volume}</td>
                   <td>-{obj.discount}</td>

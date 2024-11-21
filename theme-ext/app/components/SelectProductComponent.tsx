@@ -14,9 +14,15 @@ export interface SelectedProduct {
   productImage?: string; // Поле необов'язкове
 }
 
-export default function SelectProductComponent(){
-  const [products, setProducts] = useState<SelectedProduct[]>([]);
+interface SelectProductComponentProps {
+  products: SelectedProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<SelectedProduct[]>>;
+}
 
+export default function SelectProductComponent({
+    products,
+    setProducts,
+  }: SelectProductComponentProps){
   const handleRemoveProduct = (productId: string) => {
     setProducts((prev) => prev.filter((product) => product.productId !== productId));
   };
@@ -28,7 +34,7 @@ export default function SelectProductComponent(){
         action: "select",
         multiple: true, // Дозволяємо обирати кілька продуктів
       }) as ShopifyProduct[];
-  
+      console.log(result)
   
       // if (result !== undefined) {
         // Мапимо вибрані продукти у потрібний формат

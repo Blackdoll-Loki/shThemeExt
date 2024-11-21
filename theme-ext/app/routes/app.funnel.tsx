@@ -10,17 +10,24 @@ import {
 } from "@shopify/polaris";
 import  TextFieldComponent  from '../components/textField';
 import DiscountSettingsBlock from "app/components/DiscountSettingsBlock";
-import SelectProductComponent from '../components/SelectProductComponent';
+import SelectProductComponent, { SelectedProduct } from "../components/SelectProductComponent";
 import { useCallback, useState } from "react";
 import WidgetComponent from "app/components/widgetComponent";
+import { funnelAction } from "app/actions/funnel.action";
+import { Form } from "@remix-run/react";
 
 
-export default function AdditionalPage() {
+export const action = funnelAction
+
+
+export default function FunnelPage() {
   const [blocks, setBlocks] = useState([
     { id: 1, volume: 3, discount: 5, label: "-5%", description: "5% discount" },
     { id: 2, volume: 5, discount: 10, label: "-10%", description: "10% discount" },
     { id: 3, volume: 10, discount: 15, label: "-15%", description: "15% discount" },
   ]);
+  const [funnelName, setFunnelName] = useState('');
+  const [products, setProducts] = useState<SelectedProduct[]>([]);
 
   const [checked, setChecked] = useState(false);
 
@@ -52,6 +59,28 @@ export default function AdditionalPage() {
     );
   };
 
+  // async function handleCreate() {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('funnelName', funnelName);  // Відправляємо значення funnelName
+  //     formData.append('products', JSON.stringify(products));  // Відправляємо список продуктів
+  //     formData.append('blocks', JSON.stringify(blocks));  // Відправляємо блоки
+
+  //     const response = await fetch('/app/funnel', {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
+
+  //     if (response.ok) {
+  //       // Успішний запит
+  //       console.log('Form data submitted successfully');
+  //     } 
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // }
+  
+
 
   return (
     <Page
@@ -61,8 +90,8 @@ export default function AdditionalPage() {
       <Card>
         <BlockStack gap="500">
           <WidgetComponent blocks={blocks}/>
-          <TextFieldComponent />
-          <SelectProductComponent />
+          <TextFieldComponent onUpdate={(newName: string)=>setFunnelName(newName)} funnelName={funnelName}/>
+          <SelectProductComponent products={products} setProducts={setProducts} />
           <BlockStack gap="800">
           <Text variant="headingMd" as="h6">
             Discount configuration
@@ -89,11 +118,21 @@ export default function AdditionalPage() {
           </InlineStack>
         </BlockStack>
       </Card>
-      <Box padding="400">
+     {/* { <Box padding="400">
         <InlineStack align="end">
-          <Button variant="primary" tone="success">Create</Button>
+          <Button variant="primary" tone="success" onClick={handleCreate}>Create</Button>
         </InlineStack>
-      </Box>
+      </Box> } */}
+      <Form method="post" action="">
+        <input type="hidden" name="funnelName" value={funnelName} />
+        <input type="hidden" name="products" value={JSON.stringify((products))} />
+        <input type="hidden" name="blocks" value={JSON.stringify(blocks)} />
+        <Box padding="400">
+          <InlineStack align="end">
+            <Button variant="primary" tone="success" submit>Create</Button>
+          </InlineStack>
+        </Box>
+      </Form>
     </Page>
   );
 }

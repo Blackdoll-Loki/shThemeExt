@@ -1,18 +1,22 @@
 import {TextField} from '@shopify/polaris';
 import {useState, useCallback} from 'react';
 
-export default function TextFieldComponent() {
-  const [value, setValue] = useState('');
+interface FunnelnameProps{
+  funnelName: string
+  onUpdate:(newName: string)=> void
+}
+
+export default function TextFieldComponent(props: FunnelnameProps) {
 
   const handleChange = useCallback(
-    (newValue: string) => setValue(newValue),
-    [],
+    (newValue: string) => props.onUpdate(newValue),
+    [props]
   );
 
   return (
     <TextField
       label="Name"
-      value={value}
+      value={props.funnelName}
       onChange={handleChange}
       placeholder="Enter the offer name"
       autoComplete="off"

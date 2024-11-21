@@ -3,7 +3,7 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://grow-gothic-mw-mysterious.trycloudflare.com"
+application_url = "https://relevance-united-pam-olympic.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://grow-gothic-mw-mysterious.trycloudflare.com/auth/callback",
-  "https://grow-gothic-mw-mysterious.trycloudflare.com/auth/shopify/callback",
-  "https://grow-gothic-mw-mysterious.trycloudflare.com/api/auth/callback"
+  "https://relevance-united-pam-olympic.trycloudflare.com/auth/callback",
+  "https://relevance-united-pam-olympic.trycloudflare.com/auth/shopify/callback",
+  "https://relevance-united-pam-olympic.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
