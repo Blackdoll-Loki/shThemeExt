@@ -6,7 +6,7 @@ interface WidgetProps {
   blocks: Array<Block>;
 }
 interface Block {
-  id: number;
+  blockId: number;
   volume: number;
   discount: number;
   label: string;

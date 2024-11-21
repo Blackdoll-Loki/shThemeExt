@@ -3,7 +3,7 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://ranging-allowed-pic-rental.trycloudflare.com"
+application_url = "https://encourage-fountain-subscriptions-fathers.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://ranging-allowed-pic-rental.trycloudflare.com/auth/callback",
-  "https://ranging-allowed-pic-rental.trycloudflare.com/auth/shopify/callback",
-  "https://ranging-allowed-pic-rental.trycloudflare.com/api/auth/callback"
+  "https://encourage-fountain-subscriptions-fathers.trycloudflare.com/auth/callback",
+  "https://encourage-fountain-subscriptions-fathers.trycloudflare.com/auth/shopify/callback",
+  "https://encourage-fountain-subscriptions-fathers.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

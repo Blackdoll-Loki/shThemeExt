@@ -12,9 +12,7 @@ export const funnelAction = async ({ request }: ActionFunctionArgs) => {
   const blocks = data.get("blocks") as string; 
 
   const cleanedFunnelName = funnelName.replace(/[^a-zA-Z0-9]/g, '');
-
- console.log(`typeof funnelName`, typeof funnelName)
- console.log('blocks', blocks)
+  const blocksWithoutDoubleQuotes = blocks.replace(/"/g, '\\"');
 
 
 if(products){
@@ -24,7 +22,8 @@ if(products){
   //console.log('productsIdsArr', productsIds)
 
   for (const productId of productsIds) {
-    console.log('productId', productId)
+    console.log('typeof productId',typeof productId)
+    console.log('blocksWithoutDoubleQuotes', blocksWithoutDoubleQuotes)
 
     const mutation = `
       mutation {
@@ -35,8 +34,8 @@ if(products){
               {
                 namespace: "funnel",
                 key: "${cleanedFunnelName}",
-                value: "${blocks}",
-                type: "json" 
+                value: "${blocksWithoutDoubleQuotes}",
+                type: "json",
               }
             ]
           }
@@ -63,6 +62,7 @@ if(products){
 
     try {
       // Виконуємо GraphQL запит
+      console.log(`Here's mutation query!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`, mutation)
       const response = await admin.graphql(mutation);
       // response have to be an updated product
       console.log(`Product ${productId} updated successfully`, response);

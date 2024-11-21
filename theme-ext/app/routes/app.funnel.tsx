@@ -22,9 +22,9 @@ export const action = funnelAction
 
 export default function FunnelPage() {
   const [blocks, setBlocks] = useState([
-    { id: 1, volume: 3, discount: 5, label: "-5%", description: "5% discount" },
-    { id: 2, volume: 5, discount: 10, label: "-10%", description: "10% discount" },
-    { id: 3, volume: 10, discount: 15, label: "-15%", description: "15% discount" },
+    { blockId: 1, volume: 3, discount: 5, label: "-5%", description: "5% discount" },
+    { blockId: 2, volume: 5, discount: 10, label: "-10%", description: "10% discount" },
+    { blockId: 3, volume: 10, discount: 15, label: "-15%", description: "15% discount" },
   ]);
   const [funnelName, setFunnelName] = useState('');
   const [products, setProducts] = useState<SelectedProduct[]>([]);
@@ -38,7 +38,7 @@ export default function FunnelPage() {
 
   const addBlock = () => {
     const newBlock = {
-      id: Date.now(),
+      blockId: Date.now(),
       volume: 0,
       discount: 0,
       label: "",
@@ -48,39 +48,16 @@ export default function FunnelPage() {
   };
 
   const removeBlock = (id: number) => {
-    setBlocks((prevBlocks) => prevBlocks.filter((block) => block.id !== id));
+    setBlocks((prevBlocks) => prevBlocks.filter((block) => block.blockId !== id));
   };
 
   const updateBlock = (id: number, updatedValues: Partial<typeof blocks[0]>) => {
     setBlocks((prevBlocks) =>
       prevBlocks.map((block) =>
-        block.id === id ? { ...block, ...updatedValues } : block
+        block.blockId === id ? { ...block, ...updatedValues } : block
       )
     );
   };
-
-  // async function handleCreate() {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('funnelName', funnelName);  // Відправляємо значення funnelName
-  //     formData.append('products', JSON.stringify(products));  // Відправляємо список продуктів
-  //     formData.append('blocks', JSON.stringify(blocks));  // Відправляємо блоки
-
-  //     const response = await fetch('/app/funnel', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     if (response.ok) {
-  //       // Успішний запит
-  //       console.log('Form data submitted successfully');
-  //     } 
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // }
-  
-
 
   return (
     <Page
@@ -96,13 +73,13 @@ export default function FunnelPage() {
           <Text variant="headingMd" as="h6">
             Discount configuration
           </Text>
-          {blocks.map((block) => (
+          {blocks.map((block, idx) => (
               <DiscountSettingsBlock
-                key={block.id}
+                key={idx}
                 {...block}
                 checked={checked}
-                onRemove={() => removeBlock(block.id)}
-                onUpdate={(updatedValues) => updateBlock(block.id, updatedValues)}
+                onRemove={() => removeBlock(block.blockId)}
+                onUpdate={(updatedValues) => updateBlock(block.blockId, updatedValues)}
               />
             ))}
           </BlockStack>
