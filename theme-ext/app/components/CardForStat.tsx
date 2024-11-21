@@ -1,8 +1,12 @@
 import React from 'react';
 import {BlockStack, Card, InlineGrid, Text} from '@shopify/polaris';
 
+interface CardWithHeaderProps {
+  title: string;
+  subtitle: string;
+}
 
-export default function CardWithHeaderIconActions(title: string, subtitle: string) {
+export default function CardWithHeaderIconActions({ title, subtitle }: CardWithHeaderProps) {
   return (
     <Card roundedAbove="sm">
       <InlineGrid>

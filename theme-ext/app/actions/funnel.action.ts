@@ -1,10 +1,10 @@
 import { ActionFunctionArgs } from "@remix-run/node";
-import { authenticate, unauthenticated } from "app/shopify.server";
+import { authenticate } from "app/shopify.server";
 import type { SelectedProduct }from '../components/SelectProductComponent';
 
 
 export const funnelAction = async ({ request }: ActionFunctionArgs) => {
-  const context = await authenticate.admin(request);
+  const { admin } = await authenticate.admin(request);
   const data = await request.formData();
 
   const funnelName = data.get("funnelName") as string
@@ -16,16 +16,16 @@ export const funnelAction = async ({ request }: ActionFunctionArgs) => {
  console.log(`typeof funnelName`, typeof funnelName)
  console.log('blocks', blocks)
 
- const shop = context.session.shop
- const {admin: {graphql}} = await unauthenticated.admin(shop)
 
 if(products){
   const productsArr = JSON.parse(products)
   const productsIds = productsArr.map((obj: SelectedProduct) => obj.productId)
 
-  console.log('productsIdsArr', productsIds)
+  //console.log('productsIdsArr', productsIds)
 
   for (const productId of productsIds) {
+    console.log('productId', productId)
+
     const mutation = `
       mutation {
         productUpdate(
@@ -53,13 +53,18 @@ if(products){
               }
             }
           }
+          userErrors {
+            field
+            message
+          }
         }
       }
     `;
 
     try {
       // Виконуємо GraphQL запит
-      const response = await graphql(mutation);
+      const response = await admin.graphql(mutation);
+      // response have to be an updated product
       console.log(`Product ${productId} updated successfully`, response);
     } catch (error) {
       console.error(`Error updating product ${productId}:`, error);
@@ -69,3 +74,5 @@ if(products){
 
   return null
 }
+
+

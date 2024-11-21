@@ -3,22 +3,23 @@
 client_id = "25af563cd3ac5927bb0ecd44c47a0ca4"
 name = "themeExt"
 handle = "themeext-2"
-application_url = "https://relevance-united-pam-olympic.trycloudflare.com"
+application_url = "https://ranging-allowed-pic-rental.trycloudflare.com"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "fffff12345test.myshopify.com"
+include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = ""
+scopes = "read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://relevance-united-pam-olympic.trycloudflare.com/auth/callback",
-  "https://relevance-united-pam-olympic.trycloudflare.com/auth/shopify/callback",
-  "https://relevance-united-pam-olympic.trycloudflare.com/api/auth/callback"
+  "https://ranging-allowed-pic-rental.trycloudflare.com/auth/callback",
+  "https://ranging-allowed-pic-rental.trycloudflare.com/auth/shopify/callback",
+  "https://ranging-allowed-pic-rental.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

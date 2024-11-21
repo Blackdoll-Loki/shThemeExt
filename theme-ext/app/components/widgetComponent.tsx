@@ -122,6 +122,7 @@ export default function WidgetComponent({ blocks }: WidgetProps){
                 .map((block, index)=>{
                   return (
                     <div className='progress-bar-block'
+                    key={index}
                     style={progressBarStyles[index+1]}>-{block.discount}%</div>
                   )
                 })
@@ -136,8 +137,8 @@ export default function WidgetComponent({ blocks }: WidgetProps){
             </thead>
             <tbody>
               {blocks.sort((block1: Block, block2: Block)=>block1.volume - block2.volume)
-              .map((obj)=>(
-                <tr className='table-row' >
+              .map((obj, index)=>(
+                <tr key={index} className='table-row' >
                   <td>{obj.volume}</td>
                   <td>-{obj.discount}</td>
                 </tr>

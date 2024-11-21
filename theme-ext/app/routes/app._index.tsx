@@ -104,8 +104,14 @@ export default function Index() {
     <Page>
       <BlockStack gap="500">
         <InlineGrid gap="400" columns={3}>
-          {titlesForStatsCards.map(el=>{
-            return CardWithHeaderIconActions(el.title, el.subtitle)
+          {titlesForStatsCards.map((el, idx)=>{
+            return (
+            <CardWithHeaderIconActions
+            key={idx} 
+            title={el.title} 
+            subtitle={el.subtitle} 
+             />
+          )
           })}
         </InlineGrid>
         <BlockStack gap="500">
