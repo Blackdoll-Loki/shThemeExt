@@ -28,7 +28,7 @@ export default function WidgetComponent({ blocks }: WidgetProps){
 
     const theBiggestDiscountOption = blocks.reduce((acc, cur)=>{
       if(cur.discount > acc){
-        acc = cur.discount;
+        acc = cur.volume;
       }
       return acc;
     }, 0)
@@ -42,52 +42,40 @@ export default function WidgetComponent({ blocks }: WidgetProps){
   }
   const options = createOptions();
 
-  // function getProgressBarStyles(arr: Block[], selected: string) {
-  //   const volumes = arr.map((obj) => obj.volume);
-  //   const select = Number(selected); // Поточне значення selected
-  //   let remaining = select
-  //   const styles = volumes.map((volume, index) => {
-  //     if(select >= (volume - 1)){
-  //       return { background: 'rgb(160, 159, 243)' }
-  //     }
-
-  //     if(select < volume && remaining !== 0 ){
-  //       const percentColored = Math.round((remaining / volume) * 100);
-  //       const percentWhite = 100 - percentColored;
-  //       remaining = 0
-  //       return {
-  //            background: `linear-gradient(to right, rgb(160, 159, 243) ${percentColored}%, white ${percentWhite}%)`,
-  //       };
-  //     } 
-  //   });
-  //   console.log(styles)
-  //   return styles;
-  // }
-
   function getProgressBarStyles(arr: Block[], selected: string) {
-      const volumes = arr.map((obj) => obj.volume);
+      //const volumes = arr.map((obj) => obj.volume);
+      const volumes = [{
+        blockId: 0, 
+        volume: 0, 
+        discount: 0, 
+        label: '', 
+        description: ''
+      }, ...arr].map((obj)=> obj.volume);
       const select = Number(selected); // Поточне значення selected
-      let nextBlockGrad = 0;
+      let nextBlockGrad = select;
 
       const styles = volumes.map((volume, index) => {
-          if(select >= volume){
-            nextBlockGrad = 1
+          const nextVolume = volumes[index + 1]
+          const oneLessThenNextVolume = (volumes[index + 1] - 1)
+
+          if(nextBlockGrad > 0 && select < oneLessThenNextVolume){
+              const percentColored = Math.round((select /  oneLessThenNextVolume) * 100);
+              const percentWhite = 100 - percentColored;
+              nextBlockGrad = select - oneLessThenNextVolume
+              return {
+                      background: `linear-gradient(to right, rgb(160, 159, 243) ${percentColored}% ${percentWhite}%, white ${percentWhite}%)`,
+                      };
+          } else if(select >= oneLessThenNextVolume){
+            nextBlockGrad = select - oneLessThenNextVolume
+            return { background: 'rgb(160, 159, 243)' }
+          } else 
+          if(select === volume){
             return { background: 'rgb(160, 159, 243)' }
           }
-          if(nextBlockGrad || select < volume){
-            const percentColored = Math.round((select / volume) * 100);
-            const percentWhite = 100 - percentColored;
-            if(select < volume){
-              nextBlockGrad = 0
-            }
-            return {
-              background: `linear-gradient(to right, rgb(160, 159, 243) ${percentColored}%, white ${percentWhite}%)`,
-             };
-          }
       })
+      console.log('styles', styles);
       return styles;
   }
-
 
   return(
     <Box>
