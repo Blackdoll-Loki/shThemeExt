@@ -1,10 +1,9 @@
 import {
-  IndexTable,
-  Text,
-  Badge,
-  useBreakpoints,
-  Button,
   Icon,
+  Text,
+  DataTable,
+  Box,
+  InlineStack,
 } from '@shopify/polaris';
 import React from 'react';
 import {
@@ -23,69 +22,46 @@ interface FunnelObj{
 
 export default function IndexTableWithoutCheckboxesExample() {
   const funnel = [
-    { id: '1',
-      funnelName: 'A TOP DISCOUNT SCHEDULE TRANCEIVERS',
-      creationDate: '30/08/2023',
-      products: 5,
-      status: 'Active',
-      deleteBtn: 'delete',
-    },
-    { id: '2',
-      funnelName: 'My first offer',
-      creationDate: '19/08/2023',
-      products: 10,
-      status: 'Active',
-      deleteBtn: 'delete',
-    },
+    [
+      <Icon source={ChartHistogramGrowthIcon} tone="base" />,
+      'A TOP DISCOUNT SCHEDULE TRANCEIVERS',
+      <InlineStack align='center'>'30/08/2023'</InlineStack>,
+      <InlineStack align='center'>5</InlineStack>,
+      <Icon source={DeleteIcon} tone="critical" />,
+    ],
+    [ 
+      <Icon source={ChartHistogramGrowthIcon} tone="base" />,
+      'My first offer',
+      <InlineStack align='center'>'19/08/2023'</InlineStack>,
+      <InlineStack align='center'>10</InlineStack>,
+      <InlineStack align='center'>
+        <Icon source={DeleteIcon} tone="critical" />
+      </InlineStack>,
+    ],
   ];
-  const resourceName = {
-    singular: 'order',
-    plural: 'orders',
-  };
 
-  const rowMarkup = funnel.map(
-    (
-      { id, funnelName,creationDate, products, status, deleteBtn } : FunnelObj,
-      index,
-    ) => (
-      <IndexTable.Row id={id} key={id} position={index}>
-        <IndexTable.Cell>
-          <Icon
-            source={ChartHistogramGrowthIcon}
-            tone="base"
-          />{funnelName}
-        </IndexTable.Cell>
-        <IndexTable.Cell>{creationDate}</IndexTable.Cell>
-        <IndexTable.Cell>{products}</IndexTable.Cell>
-        <IndexTable.Cell>
-          <Badge tone="success">Active</Badge>
-        </IndexTable.Cell>
-        <IndexTable.Cell>
-          <Button variant="primary" tone="critical" icon={DeleteIcon}></Button>
-        </IndexTable.Cell>
-      </IndexTable.Row>
-    ),
-  );
 
   return (
-      <IndexTable
-        condensed={useBreakpoints().smDown}
-        resourceName={resourceName}
-        itemCount={funnel.length}
-        headings={[
-          {title: 'Funnel name'},
-          {title: 'Creation date'},
-          {title: 'Products'},
-          {title: 'Status'},  
-          {title: 'Actions'},
-        ]}
-        selectable={false}
-        pagination={{
-          hasNext: true,
-          onNext: () => {},
-        }}
-      >
-        {rowMarkup}
-      </IndexTable>
+      <DataTable
+      columnContentTypes={[
+        'text',
+        'text',
+        'text',
+        'text',
+        'text'
+      ]}
+      headings={[
+        '',
+        'Funnel name',
+        <InlineStack align='center'>Creation date</InlineStack>,
+        <InlineStack align='center'>Products</InlineStack>,
+        <InlineStack align='center'>Actions</InlineStack>,
+      ]}
+      rows={funnel}
+      pagination={{
+        hasNext: true,
+        onNext: () => {},
+      }}
+    />
   );
 }
