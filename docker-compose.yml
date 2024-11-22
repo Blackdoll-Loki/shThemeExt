@@ -19,7 +19,7 @@ services:
       DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD}
       COOKIE_SECRET: ${COOKIE_SECRET}
     volumes:
-      - ./source:/app
+      - ./theme-ext:/app
       - /home/daria/.config:/home/node/.config
     ports:
       - 3001:3000

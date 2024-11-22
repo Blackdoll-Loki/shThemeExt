@@ -4,14 +4,15 @@ import type { SelectedProduct }from '../components/SelectProductComponent';
 
 
 export const funnelAction = async ({ request }: ActionFunctionArgs) => {
-  const { admin } = await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
+  const shop = session.shop;
   const data = await request.formData();
 
-  const funnelName = data.get("funnelName") as string
+  const funnelKey = data.get("funnelName") as string
   const products = data.get("products") as string;
   const blocks = data.get("blocks") as string; 
 
-  const cleanedFunnelName = funnelName.replace(/[^a-zA-Z0-9]/g, '');
+  const cleanedFunnelName = funnelKey.replace(/[^a-zA-Z0-9]/g, '');
   const blocksWithoutDoubleQuotes = blocks.replace(/"/g, '\\"');
 
 
@@ -66,6 +67,15 @@ if(products){
       const response = await admin.graphql(mutation);
       // response have to be an updated product
       console.log(`Product ${productId} updated successfully`, response);
+
+      await prisma.funnel.create({
+        data: {
+          funnelName: "Funnel", 
+          funnelKey: funnelKey, 
+          shopDomain: shop, 
+          productId: productId, 
+        },
+      });
     } catch (error) {
       console.error(`Error updating product ${productId}:`, error);
     }

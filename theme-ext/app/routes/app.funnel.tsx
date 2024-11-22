@@ -17,6 +17,8 @@ import { funnelAction } from "app/actions/funnel.action";
 import { Form } from "@remix-run/react";
 
 
+
+
 export const action = funnelAction
 
 
@@ -27,6 +29,7 @@ export default function FunnelPage() {
     { blockId: 3, volume: 10, discount: 15, label: "-15%", description: "15% discount" },
   ]);
   const [funnelName, setFunnelName] = useState('');
+
   const [products, setProducts] = useState<SelectedProduct[]>([]);
 
   const [checked, setChecked] = useState(false);
@@ -95,11 +98,6 @@ export default function FunnelPage() {
           </InlineStack>
         </BlockStack>
       </Card>
-     {/* { <Box padding="400">
-        <InlineStack align="end">
-          <Button variant="primary" tone="success" onClick={handleCreate}>Create</Button>
-        </InlineStack>
-      </Box> } */}
       <Form method="post" action="">
         <input type="hidden" name="funnelName" value={funnelName} />
         <input type="hidden" name="products" value={JSON.stringify((products))} />
